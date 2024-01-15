@@ -4,42 +4,23 @@ public:
   string encode(vector<string> &strs)
   {
     string result = "";
-
-    for (const string &word : strs)
-    {
-      result += to_string(word.length()) + "#" + word;
-    }
-
+    for (const string &s : strs)
+      result += to_string(s.length()) + "#" + s;
     return result;
   }
 
-  vector<string> decode(string s)
+  vector<string> decode(string str)
   {
-    if (s == "0#")
-    {
-      return {""};
-    }
-
     vector<string> result;
-    string currStr;
-    int strLen;
-
-    for (int i = 0; i < s.size(); ++i)
+    int length, i = 0;
+    while (i < str.size())
     {
-      if (s[i] == '#')
-      {
-        cout << s << endl;
-        strLen = s[i - 1] - '0' == 0 ? 10 : s[i - 1] - '0';
-
-        for (int j = i + 1; j <= strLen + i; ++j)
-        {
-          currStr += s[j];
-        }
-
-        result.push_back(currStr);
-        currStr = "";
-        i += strLen + 1;
-      }
+      int j = i;
+      while (str[j] != '#')
+        ++j;
+      length = stoi(str.substr(i, j));
+      result.push_back(str.substr(j + 1, length));
+      i = j + 1 + length;
     }
 
     return result;
