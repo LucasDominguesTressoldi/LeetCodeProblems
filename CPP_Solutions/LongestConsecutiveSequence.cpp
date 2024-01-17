@@ -11,14 +11,13 @@ public:
     int longest = 0;
     int length;
 
-    for (const int &n : nums)
+    for (const int &n : numSet)
     {
       if (numSet.find(n - 1) == numSet.end())
       {
         length = 0;
         while (numSet.find(n + length) != numSet.end())
         {
-          numSet.erase(n + length);
           ++length;
         }
         longest = max(length, longest);
