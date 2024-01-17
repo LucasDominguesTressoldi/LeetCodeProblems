@@ -17,7 +17,10 @@ public:
       {
         length = 0;
         while (numSet.find(n + length) != numSet.end())
+        {
+          numSet.erase(n + length);
           ++length;
+        }
         longest = max(length, longest);
         if (longest >= numsSize)
           return longest;
