@@ -1,23 +1,31 @@
 class Solution
 {
 public:
+  bool alphaNum(char c)
+  {
+    return !(c >= 'a' && c <= 'z' ||
+             c >= 'A' && c <= 'Z' ||
+             c >= '0' && c <= '9');
+  }
+
   bool isPalindrome(string str)
   {
-    string inverse;
+    int l = 0;
+    int r = str.length() - 1;
 
-    for (int i = str.length() - 1; i >= 0; --i)
+    while (l < r)
     {
-      if (isalnum(str[i]))
-      {
-        str[i] = tolower(str[i]);
-        inverse += str[i];
-      }
-      else
-      {
-        str.erase(i, 1);
-      }
+      while (l < r && alphaNum(str[l]))
+        ++l;
+      while (r > l && alphaNum(str[r]))
+        --r;
+
+      if (tolower(str[l]) != tolower(str[r]))
+        return false;
+
+      ++l, --r;
     }
 
-    return str == inverse;
+    return true;
   }
 };
